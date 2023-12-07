@@ -1,24 +1,18 @@
-# travel-app
+# Game Of Thrones Quotes 
 
-## Project setup
-```
-pnpm install
-```
+SPA for Houses, People and Quotes
+⚠️ *Under Development* ⚠️
 
-### Compiles and hot-reloads for development
-```
-pnpm run serve
-```
+## STACK
 
-### Compiles and minifies for production
-```
-pnpm run build
-```
+* Single Page App
+* Frontend: Vue.js / Javascript / HTML / CSS
+* Backend: <https://gameofthronesquotes.xyz/>
 
-### Lints and fixes files
+``` plain
+Project:     GOT-SPA
+Developer:   Victor Wright
+Team:        wrightsdesk
+Date:        Dec 2023
+Client:      (Skill Level Test Project for *Jobcluster* )
 ```
-pnpm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
