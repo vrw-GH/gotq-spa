@@ -1,6 +1,9 @@
 # Game Of Thrones Quotes 
 
 SPA for Houses, People and Quotes
+
+[<img src="https://raw.githubusercontent.com/vrw-GH/assets/main/repo-media/gotq-spa/Screenshot.png" alt="screenshot of app" width="95%">](https://gotq-spa.vercel.app "click to visit beta site")
+
 ⚠️ *Under Development* ⚠️
 
 ## STACK
@@ -10,7 +13,7 @@ SPA for Houses, People and Quotes
 * Backend: <https://gameofthronesquotes.xyz/>
 
 ``` plain
-Project:     GOT-SPA
+Project:     GOTQ-SPA
 Developer:   Victor Wright
 Team:        wrightsdesk
 Date:        Dec 2023

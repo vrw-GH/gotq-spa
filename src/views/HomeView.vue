@@ -31,7 +31,7 @@ img {
 .intro {
   position: absolute;
   width: 50%;
-  top: 40%;
+  top: calc(10% + 20vw);
   left: 25%;
   margin: auto;
 

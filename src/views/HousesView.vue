@@ -10,7 +10,7 @@
           <li v-for="house in listHouses" :key="house.slug">
             <!-- <a href="#">{{ item.slug }}</a> -->
             <!-- <a @click="getItemData">${ item.slug }</a> -->
-            <a @click="setCurrentId(house.slug)">{{ house.slug }}</a>
+            <a @click="setCurrentSlug(house.slug)">{{ house.slug }}</a>
             <!-- <router-link :to="'/houses/' + item.slug">
                 <span>{{ item.slug }}</span>
               </router-link> -->
@@ -21,50 +21,47 @@
       <article>
         <!-- <HouseHold /> -->
         <!-- <router-view /> -->
-        <h1>{{ currentHouse }}</h1>
-        <p>{{ currentHouseName }}</p>
+        <h1>
+          {{ currentHouseName }}
+        </h1>
+        <hr />
+        <p>
+          {{ currentHouseMembers }}
+        </p>
       </article>
     </section>
-
-    <footer>
-      <p>Footer</p>
-    </footer>
   </div>
 </template>
 
-<script lang="ts" setup>
-import { ref } from "vue";
+<script lang="js">
+// import HouseHold from "../views/HouseHold.vue";
 
+import { ref } from "vue";
 const listHouses = ref([]);
 
-async function getData() {
-  const res = await fetch("https://api.gameofthronesquotes.xyz/v1/houses");
-  const finalRes = await res.json();
-  listHouses.value = finalRes;
-}
-
-getData();
-</script>
-
-<script lang="ts">
-// import HouseHold from "../views/HouseHold.vue";
 export default {
   data() {
+    async function getData() {
+      const res = await fetch("https://api.gameofthronesquotes.xyz/v1/houses");
+      const finalRes = await res.json();
+      listHouses.value = finalRes;
+    }
+    getData();
     return {
-      listHouses: [],
-      currentId: null,
+      listHouses,
+      currentSlug: null,
     };
   },
   methods: {
-    setCurrentId(id) {
-      this.currentId = id;
+    setCurrentSlug(slug) {
+      this.currentSlug = slug;
     },
   },
   computed: {
     currentHouse() {
-      if (this.currentId !== null) {
+      if (this.currentSlug !== null) {
         const currentHouseInArray = this.listHouses.filter((h) => {
-          return h.slug === this.currentId;
+          return h.slug === this.currentSlug;
         });
         if (currentHouseInArray.length === 1) {
           return currentHouseInArray[0];
@@ -75,6 +72,12 @@ export default {
     currentHouseName() {
       if (this.currentHouse !== null) {
         return this.currentHouse.name;
+      }
+      return null;
+    },
+    currentHouseMembers() {
+      if (this.currentHouse !== null) {
+        return this.currentHouse.members;
       }
       return null;
     },
@@ -115,6 +118,7 @@ nav {
 
   a:hover {
     background-color: darkviolet;
+    cursor: pointer;
   }
 }
 
@@ -122,13 +126,6 @@ article {
   flex: 4;
   background-color: #f1f1f1;
   padding: 10px;
-}
-
-footer {
-  background-color: #777;
-  padding: 10px;
-  text-align: center;
-  color: white;
 }
 
 @media (max-width: 600px) {
