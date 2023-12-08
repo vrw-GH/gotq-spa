@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <img alt="frontImage" src="../assets/got-front.png" />
     <div class="intro">
       <h1>Welcome to the GAME OF THRONES App</h1>
       <h3>Find interesting information about the GOT world</h3>
@@ -21,11 +20,6 @@ export default class HomeView extends Vue { }
 <style lang="scss" scoped>
 .home {
   overflow: hidden;
-}
-
-img {
-  width: 80vw;
-  height: auto;
 }
 
 .intro {
