@@ -1,50 +1,46 @@
+<!-- eslint-disable prettier/prettier -->
 <template>
-  <div class="houses">
+  <!-- <div class="main"> -->
+  <section>
     <header>
-      <h1>🏠 Houses</h1>
+      <h1>
+        {{ currentHouseName || "GOT - Houses" }}
+      </h1>
     </header>
-
-    <section>
-      <nav>
+    <article>
+      <nav class="leftmenu">
+        <input type="search" name="search" placeholder="Search" @keyup="filterHouses($event.target.value)" />
         <ul>
-          <li v-for="house in listHouses" :key="house.slug">
-            <!-- <a href="#">{{ item.slug }}</a> -->
-            <!-- <a @click="getItemData">${ item.slug }</a> -->
+          <li v-for=" house  in  listHouses " :key="house.slug">
             <a @click="setCurrentSlug(house.slug)">{{ house.slug }}</a>
-            <!-- <router-link :to="'/houses/' + item.slug">
-                <span>{{ item.slug }}</span>
-              </router-link> -->
           </li>
         </ul>
       </nav>
+      <h2>House Members</h2>
+      <ul>
+        <li v-for="    member     in     currentHouseMembers    " v-bind:key="member.slug">
+          <a href="/persons">{{ member.slug }}</a>
+        </li>
+      </ul>
+    </article>
+  </section>
 
-      <article>
-        <!-- <HouseHold /> -->
-        <!-- <router-view /> -->
-        <h1>
-          {{ currentHouseName }}
-        </h1>
-        <hr />
-        <p>
-          {{ currentHouseMembers }}
-        </p>
-      </article>
-    </section>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script lang="js">
-// import HouseHold from "../views/HouseHold.vue";
 
 import { ref } from "vue";
-const listHouses = ref([]);
+const allHouses = ref([]);
+let listHouses = ref([]);
 
 export default {
   data() {
-    async function getData() {
+    const getData = async () => {
       const res = await fetch("https://api.gameofthronesquotes.xyz/v1/houses");
       const finalRes = await res.json();
-      listHouses.value = finalRes;
+      const sortedRes = finalRes.sort((a, b) => { return a.slug - b.slug });
+      listHouses.value = allHouses.value = sortedRes;
     }
     getData();
     return {
@@ -55,6 +51,14 @@ export default {
   methods: {
     setCurrentSlug(slug) {
       this.currentSlug = slug;
+    },
+    filterHouses(filterSlug) {
+      listHouses.value = (filterSlug === "") ? allHouses.value :
+        allHouses.value.filter((h) => {
+          // return h.slug === filterSlug.toLowerCase().trim()
+          return h.slug.search(filterSlug.toLowerCase().trim()) !== -1
+        });
+      return null;
     },
   },
   computed: {
@@ -86,51 +90,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.houses {
-  width: 100%;
-  height: 100vh;
-  margin: auto;
-  box-sizing: border-box;
-}
-
-header {
-  text-align: center;
-
-  h1 {
-    font-size: 3rem;
-    color: darkviolet;
-  }
-}
-
 section {
-  display: flex;
-}
-
-nav {
-  flex: 1;
-  background: #ccc;
-  padding: 20px;
-  text-align: left;
-
-  li {
-    margin: 3px;
-  }
-
-  a:hover {
-    background-color: darkviolet;
-    cursor: pointer;
-  }
-}
-
-article {
-  flex: 4;
-  background-color: #f1f1f1;
-  padding: 10px;
-}
-
-@media (max-width: 600px) {
-  section {
-    flex-direction: column;
-  }
+  background-image: url("@/assets/houses.png");
 }
 </style>

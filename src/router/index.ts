@@ -8,29 +8,29 @@ const routes: Array<RouteRecordRaw> = [
     component: HomeView,
   },
   {
+    path: "/quotes",
+    name: "quotes",
+    component: () =>
+      import(/* webpackChunkName: "quotes" */ "../views/QuotesView.vue"),
+  },
+  {
     path: "/houses",
     name: "houses",
     component: () =>
       import(/* webpackChunkName: "houses" */ "../views/HousesView.vue"),
   },
-  {
-    path: "/houses/:slug",
-    name: "household",
-    component: () =>
-      import(/* webpackChunkName: "houses" */ "../views/HouseHold.vue"),
-    props: true,
-  },
+  // {
+  //   path: "/houses/:slug",
+  //   name: "household",
+  //   component: () =>
+  //     import(/* webpackChunkName: "houses" */ "../views/HouseHold.vue"),
+  //   props: true,
+  // },
   {
     path: "/persons",
     name: "persons",
     component: () =>
       import(/* webpackChunkName: "persons" */ "../views/PersonsView.vue"),
-  },
-  {
-    path: "/quotes",
-    name: "quotes",
-    component: () =>
-      import(/* webpackChunkName: "quotes" */ "../views/QuotesView.vue"),
   },
 ];
 
