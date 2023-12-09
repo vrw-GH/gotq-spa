@@ -1,0 +1,17 @@
+name: Build Vue
+on: [push]
+jobs:
+  build_vue:
+    runs-on: ubuntu-latest
+    name: Build Vue
+    steps:
+    - uses: actions/checkout@v4
+    - id: Build-Vue
+      uses: xRealNeon/VuePagesAction@1.0.0
+      with:
+        username: 'vrw-GH'
+        reponame: 'gotq-spa'
+        token: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        # VUE_APP_KEY: ${{ secrets.VUE_APP_KEY }}
+      
