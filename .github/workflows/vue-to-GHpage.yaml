@@ -17,6 +17,6 @@ jobs:
         username: 'vrw-GH'
         reponame: 'gotq-spa'
         token: ${{ secrets.GITHUB_TOKEN }}
-      env:
-        # VUE_APP_KEY: ${{ secrets.VUE_APP_KEY }}
+      # env:
+      #   VUE_APP_KEY: ${{ secrets.VUE_APP_KEY }}
       
