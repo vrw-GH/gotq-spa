@@ -1,5 +1,4 @@
-name: Publish to gh-pages
-
+name: Build Vue
 on:
   repository_dispatch:
   push:
@@ -7,18 +6,25 @@ on:
       - main
 
 jobs:
-  build:
+  build_vue:
     runs-on: ubuntu-latest
+    name: Build Vue
     steps:
     - uses: actions/checkout@v4
-    - name: Use Node.js
-      uses: actions/setup-node@v4
+    - id: Build-Vue
+      uses: xRealNeon/VuePagesAction@1.0.1
       with:
-        node-version: '18.x'    
-    - run: yarn
-    - run: yarn run build
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build
+          username: "vrw-GH"
+          reponame: "gotq-spa"
+          token: ${{ secrets.GITHUB_TOKEN }}
+    # - name: Use Node.js
+    #   with:
+    #      node-version: '18.x'    
+    #   uses: actions/setup-node@v4
+    # - run: yarn
+    # - run: yarn run build
+    # - name: Deploy
+    #   uses: peaceiris/actions-gh-pages@v3
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     publish_dir: ./build
