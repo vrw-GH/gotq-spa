@@ -1,9 +1,7 @@
 <template>
-  <div class="home">
-    <div class="intro">
-      <h1>Welcome to the GAME OF THRONES App</h1>
-      <h3>Find interesting information about the GOT world</h3>
-    </div>
+  <div class="intro">
+    <h1>Welcome to the GAME OF THRONES App</h1>
+    <h3>Find interesting information about the GOT world</h3>
   </div>
 </template>
 
@@ -18,14 +16,13 @@ export default class HomeView extends Vue { }
 </script>
 
 <style lang="scss" scoped>
-.home {
-  overflow: hidden;
-}
-
 .intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: absolute;
   width: 50%;
-  top: calc(10% + 20vw);
+  top: calc(10% + 10vw);
   left: 25%;
   margin: auto;
 

@@ -8,15 +8,15 @@
       </h1>
     </header>
     <article>
-      <ul :key="componentKey">
+      <ul>
         <li v-for=" quote  in  listQuotes " :key="quote.id">
           <h2>{{ quote.sentence }}</h2>
-          <a @click="setPersonSlug(quote.character.slug)">{{ quote.character.name }}</a>
+          <a :href="'/persons/' + quote.character.slug">{{ quote.character.name || "" }}</a>
           <span v-if="quote.character.house.name">&nbsp;-&nbsp;</span>
-          <a @click="setHouseSlug(quote.character.house.slug)">{{ quote.character.house.name }}</a>
+          <a :href="'/houses/' + quote.character.house.slug">{{ quote.character.house.name || "" }}</a>
         </li>
+        <input type="button" value="Get 5 new" v-on:click="updateData" />
       </ul>
-      <input type="button" value="Get 5 new" v-on:click="updateData" />
     </article>
   </section>
 
@@ -51,8 +51,6 @@ export default {
       listQuotes.value = allQuotes.value = sortedRes;
     },
   },
-  setPersonSlug() { return null },
-  setHouseSlug() { return null },
 };
 </script>
 
