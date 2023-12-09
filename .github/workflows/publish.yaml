@@ -14,8 +14,7 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: '18.x'
-    - run: npm
+        node-version: '18.x'    
     - run: npm run build
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
