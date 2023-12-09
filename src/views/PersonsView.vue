@@ -2,35 +2,37 @@
 <template>
   <!-- <div class="main"> -->
   <section>
-    <h1>
-      {{ currentPersonName || "GOT - Persons" }}
-      <br>
-      <a @click="setCurrentSlug(person.slug)">{{ currentPersonHouse || "House" }}</a>
-    </h1>
     <header>
       <h1>
         {{ currentPersonName || "GOT - Persons" }}
         <br>
-        <a @click="setCurrentSlug(person.slug)">{{ currentPersonHouse || "House" }}</a>
+        <!-- <a @click="gotoHouse(currentPersonHouse.slug)">{{ currentPersonHouse?.name || "" }}</a> -->
+        <a :href="'/houses/' + currentPersonHouse?.slug">{{ currentPersonHouse?.name || "" }}</a>
       </h1>
     </header>
-    <nav class="leftmenu">
-      <input type="search" name="search" placeholder="Search" @keyup="filterPersons($event.target.value)" />
-      <ul>
-        <li v-for=" person  in  listPersons " :key="person.slug">
-          <a @click="setCurrentSlug(person.slug)">{{ person.slug }}</a>
-        </li>
-      </ul>
-    </nav>
 
     <article>
-      <h2>Quotes</h2>
+      <nav class="leftmenu">
+        <input type="search" name="search" placeholder="Search" title="Start typing a Name or House" autocomplete="off"
+          autofocus @keyup="filterPersons($event.target.value)" />
+        <ul>
+          <li v-for=" person  in  listPersons " :key="person.slug">
+            <a @click="setCurrentSlug(person.slug)">
+              {{ person.slug }} - <i><small>{{ person.house?.slug }}</small>
+              </i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
       <ul>
+        <h2>Quotes</h2>
         <li v-for=" quote  in  currentPersonQuotes " v-bind:key="quote.id">
           <a href="#">{{ quote }}</a>
         </li>
+        <input v-if="currentPersonName" type="button" value="Change" />
+        <!-- v-on:click="" -->
       </ul>
-      <input v-if="currentPersonName" type="button" value="Change" /> <!-- v-on:click="" -->
     </article>
   </section>
 
@@ -90,7 +92,7 @@ export default {
     },
     currentPersonHouse() {
       if (this.currentperson !== null) {
-        return this.currentperson.house ? this.currentperson.house.name : " - - ";
+        return this.currentperson.house ? this.currentperson.house : " - - ";
       }
       return null;
     },
@@ -113,6 +115,7 @@ h1 a {
   margin: 0 0 2rem;
   color: white;
   font-size: 2rem;
+  cursor: pointer;
 }
 
 article li {

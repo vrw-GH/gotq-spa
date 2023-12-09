@@ -7,19 +7,22 @@
         {{ currentHouseName || "GOT - Houses" }}
       </h1>
     </header>
+
     <article>
       <nav class="leftmenu">
-        <input type="search" name="search" placeholder="Search" @keyup="filterHouses($event.target.value)" />
+        <input type="search" name="search" placeholder="Search" title="Start typing a House" autocomplete="off" autofocus
+          @keyup="filterHouses($event.target.value)" />
         <ul>
           <li v-for=" house  in  listHouses " :key="house.slug">
             <a @click="setCurrentSlug(house.slug)">{{ house.slug }}</a>
           </li>
         </ul>
       </nav>
-      <h2>House Members</h2>
+
       <ul>
+        <h2>House Members</h2>
         <li v-for="    member     in     currentHouseMembers    " v-bind:key="member.slug">
-          <a href="/persons">{{ member.slug }}</a>
+          <a :href="'/persons/' + member?.slug">{{ member.name }}</a>
         </li>
       </ul>
     </article>
