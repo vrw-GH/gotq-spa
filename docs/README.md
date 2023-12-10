@@ -14,7 +14,7 @@ Single Page App to display information about Houses, People and Quotes of the Ga
 
 ## Deployments
 
-Beta: [gotq-spa/builds/beta](https://github.com/vrw-GH/gotq-spa/builds/_beta/ "click to visit beta site")
+Beta: [gotq-spa/builds/beta](https://vrw-gh.github.io/gotq-spa/_beta/ "click to visit beta site")
 
 ``` plain
 Project:     GOTQ-SPA
