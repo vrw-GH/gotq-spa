@@ -34,8 +34,13 @@ const routes: Array<RouteRecordRaw> = [
   },
 ];
 
+// const loc = process.env.BASE_URL;
+// eslint-disable-next-line prettier/prettier
+const loc = window.location.pathname.slice(0, window.location.pathname.lastIndexOf('/'));
+
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(loc),
+  // history: createWebHistory(process.env.BASE_URL),
   routes,
 });
 
