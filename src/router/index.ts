@@ -32,6 +32,10 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "persons" */ "../views/PersonsView.vue"),
   },
+  {
+    path: "/:catchAll(.*)*",
+    component: HomeView,
+  },
 ];
 
 // const loc = process.env.BASE_URL;

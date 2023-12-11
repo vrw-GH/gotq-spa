@@ -8,14 +8,14 @@
       </h1>
     </header>
     <article>
-      <ul>
+      <ul :ref="'aScrolTo'">
         <li v-for=" quote  in  listQuotes " :key="quote.id">
           <h2>{{ quote.sentence }}</h2>
-          <a :href="'/persons/' + quote.character.slug">{{ quote.character.name || "" }}</a>
+          <router-link :to="'/persons/' + quote.character.slug">{{ quote.character.name || "" }}</router-link>
           <span v-if="quote.character.house.name">&nbsp;-&nbsp;</span>
-          <a :href="'/houses/' + quote.character.house.slug">{{ quote.character.house.name || "" }}</a>
+          <router-link :to="'/houses/' + quote.character.house.slug">{{ quote.character.house.name || "" }}</router-link>
         </li>
-        <input type="button" value="Get 5 new" v-on:click="updateData" />
+        <input type="button" value="Get 5 new" v-on:click="updateData(); gotoTop();" />
       </ul>
     </article>
   </section>
@@ -49,6 +49,10 @@ export default {
       const finalRes = await res.json();
       const sortedRes = finalRes.sort((a, b) => { return a.slug - b.slug });
       listQuotes.value = allQuotes.value = sortedRes;
+    },
+    gotoTop() {
+      // console.log(this.$refs.aScrolTo);
+      this.$nextTick(() => this.$refs.aScrolTo.scrollTo(0, 0))
     },
   },
 };

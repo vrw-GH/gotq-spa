@@ -7,7 +7,8 @@
         {{ currentPersonName || "GOT - Persons" }}
         <br>
         <!-- <a @click="gotoHouse(currentPersonHouse.slug)">{{ currentPersonHouse?.name || "" }}</a> -->
-        <a :href="'/houses/' + currentPersonHouse?.slug">{{ currentPersonHouse?.name || "" }}</a>
+        <!-- <a :href="'/houses/' + currentPersonHouse?.slug">{{ currentPersonHouse?.name || "" }}</a> -->
+        <router-link :to="'/houses/' + currentPersonHouse?.slug">{{ currentPersonHouse?.name || "" }}</router-link>
       </h1>
     </header>
 
@@ -25,13 +26,12 @@
         </ul>
       </nav>
 
-      <ul>
+      <ul :ref="'aScrolTo'">
         <h2>Quotes</h2>
         <li v-for=" quote  in  currentPersonQuotes " v-bind:key="quote.id">
           <a href="#">{{ quote }}</a>
         </li>
-        <input v-if="currentPersonName" type="button" value="Change" />
-        <!-- v-on:click="" -->
+        <input v-if="currentPersonName" type="button" value="Change Quotes" v-on:click="changeQuotes(); gotoTop();" />
       </ul>
     </article>
   </section>
@@ -44,6 +44,7 @@
 import { ref } from "vue";
 const allPersons = ref([]);
 let listPersons = ref([]);
+let currentQuotes = ref([]);
 
 export default {
   data() {
@@ -71,6 +72,22 @@ export default {
         });
       return null;
     },
+    changeQuotes() {
+      if (this.currentperson !== null) {
+        const getNewQuotes = async () => {
+          const res = await fetch("https://api.gameofthronesquotes.xyz/v1/random/3");
+          const finalRes = await res.json();
+          currentQuotes.value = finalRes.map((e) => e.sentence)
+        }
+        getNewQuotes();
+        return currentQuotes;
+      }
+      return null;
+    },
+    gotoTop() {
+      // console.log(this.$refs.aScrolTo);
+      this.$nextTick(() => this.$refs.aScrolTo.scrollTo(0, 0))
+    },
   },
   computed: {
     currentperson() {
@@ -79,6 +96,7 @@ export default {
           return h.slug === this.currentSlug;
         });
         if (currentpersonInArray.length === 1) {
+          currentQuotes.value = currentpersonInArray[0].quotes
           return currentpersonInArray[0];
         }
       }
@@ -98,7 +116,7 @@ export default {
     },
     currentPersonQuotes() {
       if (this.currentperson !== null) {
-        return this.currentperson.quotes;
+        return currentQuotes.value
       }
       return null;
     },
