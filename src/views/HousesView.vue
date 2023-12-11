@@ -22,7 +22,7 @@
       <ul>
         <h2>House Members</h2>
         <li v-for="    member     in     currentHouseMembers    " v-bind:key="member.slug">
-          <a :href="'/persons/' + member?.slug">{{ member.name }}</a>
+          <router-link :to="'/persons/' + member?.slug">{{ member.name || "" }}</router-link>
         </li>
       </ul>
     </article>
