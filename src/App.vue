@@ -211,8 +211,6 @@ input[type="search"] {
   }
 }
 
-
-
 footer {
   position: sticky;
   bottom: 0;
