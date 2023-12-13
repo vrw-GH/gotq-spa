@@ -1,42 +1,41 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
-  <!-- <div class="main"> -->
+  <header>
+    <h1>
+      {{ currentPersonName || "GOT - Persons" }}
+    </h1>
+  </header>
+
   <section>
-    <header>
-      <h1>
-        {{ currentPersonName || "GOT - Persons" }}
-        <br>
-        <!-- <a @click="gotoHouse(currentPersonHouse.slug)">{{ currentPersonHouse?.name || "" }}</a> -->
-        <!-- <a :href="'/houses/' + currentPersonHouse?.slug">{{ currentPersonHouse?.name || "" }}</a> -->
-        <router-link :to="'/houses/' + currentPersonHouse?.slug">{{ currentPersonHouse?.name || "" }}</router-link>
-      </h1>
-    </header>
+    <nav>
+      <input type="search" name="search" placeholder="Search" title="Start typing a Name or House" autocomplete="off"
+        autofocus @keyup="filterPersons($event.target.value)" />
+      <ul>
+        <li v-for=" person  in  listPersons " :key="person.slug">
+          <a @click="setCurrentSlug(person.slug)">
+            {{ person.slug }} - <i><small>{{ person.house?.slug }}</small>
+            </i>
+          </a>
+        </li>
+      </ul>
+    </nav>
 
     <article>
-      <nav class="leftmenu">
-        <input type="search" name="search" placeholder="Search" title="Start typing a Name or House" autocomplete="off"
-          autofocus @keyup="filterPersons($event.target.value)" />
-        <ul>
-          <li v-for=" person  in  listPersons " :key="person.slug">
-            <a @click="setCurrentSlug(person.slug)">
-              {{ person.slug }} - <i><small>{{ person.house?.slug }}</small>
-              </i>
-            </a>
-          </li>
-        </ul>
-      </nav>
-
-      <ul :ref="'aScrolTo'">
+      <!-- <h3 v-if="currentPersonHouse?.name">
+        <router-link :to="'/houses/' + currentPersonHouse?.slug">{{ currentPersonHouse?.name || "" }}</router-link>
+      </h3> -->
+      <ul :ref="'aScrollTo'">
+        <h3 v-if="currentPersonHouse?.name">
+          <router-link :to="'/houses/' + currentPersonHouse?.slug">{{ currentPersonHouse?.name || "" }}</router-link>
+        </h3>
         <h2>Quotes</h2>
         <li v-for=" quote  in  currentPersonQuotes " v-bind:key="quote.id">
-          <a href="#">{{ quote }}</a>
+          {{ quote }}
         </li>
         <input v-if="currentPersonName" type="button" value="Change Quotes" v-on:click="changeQuotes(); gotoTop();" />
       </ul>
     </article>
   </section>
-
-  <!-- </div> -->
 </template>
 
 <script lang="js">
@@ -57,7 +56,7 @@ export default {
     getData();
     return {
       listPersons,
-      currentSlug: null,
+      currentSlug: this.$route.params.slug || null,
     };
   },
   methods: {
@@ -85,8 +84,8 @@ export default {
       return null;
     },
     gotoTop() {
-      // console.log(this.$refs.aScrolTo);
-      this.$nextTick(() => this.$refs.aScrolTo.scrollTo(0, 0))
+      // console.log(this.$refs.aScrollTo);
+      this.$nextTick(() => this.$refs.aScrollTo.scrollTo(0, 0))
     },
   },
   computed: {
@@ -127,20 +126,5 @@ export default {
 <style lang="scss" scoped>
 section {
   background-image: url("@/assets/persons.png");
-}
-
-h1 a {
-  margin: 0 0 2rem;
-  color: white;
-  font-size: 2rem;
-  cursor: pointer;
-}
-
-article li {
-  a {
-    color: white;
-    text-decoration: none;
-    cursor: default;
-  }
 }
 </style>

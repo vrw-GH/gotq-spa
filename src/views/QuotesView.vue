@@ -1,17 +1,17 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
-  <!-- <div class="main"> -->
+  <header>
+    <h1>
+      GOT - Quotes
+    </h1>
+  </header>
   <section>
-    <header>
-      <h1>
-        GOT - Quotes
-      </h1>
-    </header>
     <article>
-      <ul :ref="'aScrolTo'">
+      <ul :ref="'aScrollTo'">
         <li v-for=" quote  in  listQuotes " :key="quote.id">
           <h2>{{ quote.sentence }}</h2>
-          <router-link :to="'/persons/' + quote.character.slug">{{ quote.character.name || "" }}</router-link>
+          <router-link :to="{ name: 'Character', params: { slug: quote.character.slug } }">{{ quote.character.name || ""
+          }}</router-link>
           <span v-if="quote.character.house.name">&nbsp;-&nbsp;</span>
           <router-link :to="'/houses/' + quote.character.house.slug">{{ quote.character.house.name || "" }}</router-link>
         </li>
@@ -19,8 +19,6 @@
       </ul>
     </article>
   </section>
-
-  <!-- </div> -->
 </template>
 
 <script lang="js">
@@ -51,8 +49,8 @@ export default {
       listQuotes.value = allQuotes.value = sortedRes;
     },
     gotoTop() {
-      // console.log(this.$refs.aScrolTo);
-      this.$nextTick(() => this.$refs.aScrolTo.scrollTo(0, 0))
+      // console.log(this.$refs.aScrollTo);
+      this.$nextTick(() => this.$refs.aScrollTo.scrollTo(0, 0))
     },
   },
 };
@@ -69,6 +67,7 @@ article {
     max-height: 98%;
 
     li {
+      text-align: center;
       margin: 40px 0 0;
     }
 

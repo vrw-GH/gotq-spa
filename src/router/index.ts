@@ -4,33 +4,40 @@ import HomeView from "../views/HomeView.vue";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    name: "home",
+    name: "Home",
     component: HomeView,
   },
   {
     path: "/quotes",
-    name: "quotes",
+    name: "Quotes",
     component: () =>
       import(/* webpackChunkName: "quotes" */ "../views/QuotesView.vue"),
   },
   {
     path: "/houses",
-    name: "houses",
+    name: "Houses",
     component: () =>
       import(/* webpackChunkName: "houses" */ "../views/HousesView.vue"),
   },
-  // {
-  //   path: "/houses/:slug",
-  //   name: "household",
-  //   component: () =>
-  //     import(/* webpackChunkName: "houses" */ "../views/HouseHold.vue"),
-  //   props: true,
-  // },
+  {
+    path: "/houses/:slug",
+    name: "Household",
+    component: () =>
+      import(/* webpackChunkName: "houses" */ "../views/HousesView.vue"),
+    // props: true,
+  },
   {
     path: "/persons",
-    name: "persons",
+    name: "Persons",
     component: () =>
       import(/* webpackChunkName: "persons" */ "../views/PersonsView.vue"),
+  },
+  {
+    path: "/persons/:slug",
+    name: "Character",
+    component: () =>
+      import(/* webpackChunkName: "houses" */ "../views/PersonsView.vue"),
+    // props: true,
   },
   {
     path: "/:catchAll(.*)*",
@@ -38,13 +45,11 @@ const routes: Array<RouteRecordRaw> = [
   },
 ];
 
-// const loc = process.env.BASE_URL;
-// eslint-disable-next-line prettier/prettier
 const loc = window.location.pathname.slice(0, window.location.pathname.lastIndexOf('/'));
+// const loc = process.env.BASE_URL;
 
 const router = createRouter({
   history: createWebHistory(loc),
-  // history: createWebHistory(process.env.BASE_URL),
   routes,
 });
 
