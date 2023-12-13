@@ -7,6 +7,7 @@
   </header>
 
   <section>
+    <div class="scrollingImage"></div>
     <nav>
       <input type="search" name="search" placeholder="Search" title="Start typing a Name or House" autocomplete="off"
         autofocus @keyup="filterPersons($event.target.value)" />
@@ -21,9 +22,6 @@
     </nav>
 
     <article>
-      <!-- <h3 v-if="currentPersonHouse?.name">
-        <router-link :to="'/houses/' + currentPersonHouse?.slug">{{ currentPersonHouse?.name || "" }}</router-link>
-      </h3> -->
       <ul :ref="'aScrollTo'">
         <h3 v-if="currentPersonHouse?.name">
           <router-link :to="'/houses/' + currentPersonHouse?.slug">{{ currentPersonHouse?.name || "" }}</router-link>
