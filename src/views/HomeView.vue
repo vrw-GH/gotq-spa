@@ -11,7 +11,6 @@ import { Options, Vue } from "vue-class-component";
 @Options({
   components: {},
 })
-// eslint-disable-next-line prettier/prettier
 export default class HomeView extends Vue { }
 </script>
 
