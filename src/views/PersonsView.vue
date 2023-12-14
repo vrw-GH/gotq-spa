@@ -9,8 +9,8 @@
   <section>
     <div class="scrollingImage"></div>
     <nav>
-      <input type="search" name="search" placeholder="Search" title="Start typing a Name or House" autocomplete="off"
-        autofocus @keyup="filterPersons($event.target.value)" />
+      <input type="search" name="search" placeholder="Search any name/house" title="Start typing a Name or House"
+        autocomplete="off" autofocus @keyup="filterPersons($event.target.value)" />
       <ul>
         <li v-for=" person  in  listPersons " :key="person.slug">
           <a @click="setCurrentSlug(person.slug)">
@@ -48,8 +48,8 @@ export default {
     const getData = async () => {
       const res = await fetch("https://api.gameofthronesquotes.xyz/v1/characters");
       const finalRes = await res.json();
-      const sortedRes = finalRes.sort((a, b) => { return a.slug - b.slug });
-      listPersons.value = allPersons.value = sortedRes;
+      finalRes.sort((a, b) => { return a.slug.localeCompare(b.slug) });
+      listPersons.value = allPersons.value = finalRes;
     }
     getData();
     return {

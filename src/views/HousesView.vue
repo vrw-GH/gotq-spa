@@ -8,10 +8,10 @@
 
   <section>
     <nav class="leftmenu">
-      <input type="search" name="search" placeholder="Search" title="Start typing a House" autocomplete="off" autofocus
-        @keyup="filterHouses($event.target.value)" />
+      <input type="search" name="search" placeholder="Search any house" title="Start typing a House" autocomplete="off"
+        autofocus @keyup="filterHouses($event.target.value)" />
       <ul>
-        <li v-for=" house  in  listHouses " :key="house.slug">
+        <li v-for=" house  in  listHouses" :key="house.slug">
           <a @click="setCurrentSlug(house.slug)">{{ house.slug }}</a>
         </li>
       </ul>
@@ -20,7 +20,7 @@
     <article>
       <ul>
         <h2>House Members</h2>
-        <li v-for="    member     in     currentHouseMembers    " v-bind:key="member.slug">
+        <li v-for="     member      in      currentHouseMembers     " v-bind:key="member.slug">
           <router-link :to="'/persons/' + member?.slug">{{ member.name || "" }}</router-link>
         </li>
       </ul>
@@ -39,8 +39,8 @@ export default {
     const getData = async () => {
       const res = await fetch("https://api.gameofthronesquotes.xyz/v1/houses");
       const finalRes = await res.json();
-      const sortedRes = finalRes.sort((a, b) => { return a.slug - b.slug });
-      listHouses.value = allHouses.value = sortedRes;
+      finalRes.sort((a, b) => a.slug.localeCompare(b.slug));
+      listHouses.value = allHouses.value = finalRes;
     }
     getData();
     return {
